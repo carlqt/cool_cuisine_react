@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 
 import { withStyles } from '@material-ui/core/styles';
 import { getMenu } from 'Requests';
+import List from './list';
 
 import 'typeface-roboto';
 
@@ -33,23 +34,24 @@ class Menu extends Component {
 
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
+    const { meals } = this.state;
 
     return (
       <div className={classes.container}>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              Meals
             </Typography>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <CartIcon />
+              <Badge badgeContent={17} color="secondary">
+                <CartIcon />
+              </Badge>
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Grid className={classes.contents} container spacing={8}>
-        </Grid>
+
+        <List data={meals} />
       </div>
     );
   }
@@ -58,7 +60,7 @@ class Menu extends Component {
 const styles = theme => ({
   container: {
     backgroundColor: '#eeeeee',
-    height: '100vh',
+    flex: 1,
   },
   grow: {
     flexGrow: 1,
