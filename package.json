@@ -11,7 +11,8 @@
     "immer": "^2.1.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-router-dom": "^4.4.0"
+    "react-router-dom": "^4.4.0",
+    "typeface-roboto": "^0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",
