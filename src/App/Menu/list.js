@@ -5,13 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import ListItem from './listItem';
 
 class List extends PureComponent {
-  renderItem = (item, index) => {
+  renderItem = (id, index) => {
+    const { data: { meals } } = this.props;
+
     const {
       name,
       description,
       image_url: imageUrl,
-      id,
-    } = item;
+    } = meals.byID[Number(id)];
 
     return (
       <ListItem key={id}
@@ -27,10 +28,13 @@ class List extends PureComponent {
 
   render() {
     const  { classes, data } = this.props;
+    const { meals } = data;
+
+    // console.log(meals);
 
     return (
       <Grid container className={classes.container} spacing={8}>
-        { data.map(this.renderItem) }
+        { meals.allID.map(this.renderItem) }
       </Grid>
     );
   }
