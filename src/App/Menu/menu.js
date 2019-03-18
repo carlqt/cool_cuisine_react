@@ -18,8 +18,14 @@ class Menu extends Component {
   }
 
   render() {
-    const { classes, mealStore } = this.props;
-    const meals = mealStore;
+    const {
+      addToCart,
+      classes,
+      cartStore: cart,
+      mealStore: meals,
+    } = this.props;
+
+    // console.log(this.props);
 
     return (
       <div className={classes.container}>
@@ -29,14 +35,17 @@ class Menu extends Component {
               Meals
             </Typography>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={cart.length} color="secondary">
                 <CartIcon />
               </Badge>
             </IconButton>
           </Toolbar>
         </AppBar>
 
-        <List data={meals} />
+        <List
+          {...{ addToCart }}
+          data={meals}
+        />
       </div>
     );
   }

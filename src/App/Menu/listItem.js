@@ -11,11 +11,22 @@ import Button from '@material-ui/core/Button';
 
 const ListItem = (props) => {
   const {
+    id,
     imageUrl,
     name,
     classes,
     description,
+    addToCart,
   } = props;
+
+  const onClick = () => {
+    addToCart({
+      id,
+      imageUrl,
+      name,
+      description,
+    });
+  }
 
   return (
     <Grid className={classes.container} item xs={3}>
@@ -36,7 +47,12 @@ const ListItem = (props) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button variant="outlined">Add to cart</Button>
+          <Button
+            variant="outlined"
+            onClick={onClick}
+          >
+              Add to cart
+          </Button>
           <Typography variant="h6" color="secondary">
             $44.50
           </Typography>

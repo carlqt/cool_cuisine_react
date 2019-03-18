@@ -15,7 +15,15 @@ export default function (state = initialState, action) {
     }
     case 'ADD_TO_CART': {
       return produce(state, draft => {
-        draft.cart = draft.cart.push(data);
+        // let { cart } = draft;
+        const idx = draft.cart.findIndex(item => item.id === data.id)
+
+        if (idx >= 0) {
+          draft.cart[idx].quantity = draft.cart[idx].quantity + 1;
+        } else {
+          data.quantity = 1
+          draft.cart = draft.cart.concat(data);
+        }
       })
     }
     case 'REMOVE_FROM_CART': {

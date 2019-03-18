@@ -6,7 +6,10 @@ import ListItem from './listItem';
 
 class List extends PureComponent {
   renderItem = (id, index) => {
-    const { data: { meals } } = this.props;
+    const {
+      addToCart,
+      data: { meals },
+    } = this.props;
 
     const {
       name,
@@ -17,6 +20,7 @@ class List extends PureComponent {
     return (
       <ListItem key={id}
         {...{
+          addToCart,
           name,
           description,
           imageUrl,

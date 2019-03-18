@@ -17,3 +17,11 @@ export function setItem(key, data) {
     console.log('Error saving to local storage ', e);
   }
 }
+
+export function insertToCart(item) {
+  const cart = getItem('cart') || [];
+  setItem(
+    'cart',
+    cart.concat(item),
+  );
+}
