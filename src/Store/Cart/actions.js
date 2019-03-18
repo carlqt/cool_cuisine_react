@@ -1,15 +1,16 @@
+import apiRoutes from 'Requests/apiRoutes';
+
 export function addToCart(item) {
-  const isAuthenticated = false
+  return async (dispatch) => {
+    const data = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item),
+    }
 
-  if (isAuthenticated) {
-    // store to DB
-    // do some fetch requests
-  } else {
-    // store in localStorage
-    // insertToCart(item);
-  }
+    const response = await fetch(apiRoutes.cartUrl, data);
+    const jsonResponse = await response.json();
 
-  return dispatch => {
     dispatch(
       addToCartAC(item)
     );

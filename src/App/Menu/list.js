@@ -14,6 +14,7 @@ class List extends PureComponent {
     const {
       name,
       description,
+      quantity,
       image_url: imageUrl,
     } = meals.byID[Number(id)];
 
@@ -25,6 +26,7 @@ class List extends PureComponent {
           description,
           imageUrl,
           id,
+          quantity,
         }}
       />
     )

@@ -17,6 +17,7 @@ const ListItem = (props) => {
     classes,
     description,
     addToCart,
+    quantity,
   } = props;
 
   const onClick = () => {
@@ -25,6 +26,7 @@ const ListItem = (props) => {
       imageUrl,
       name,
       description,
+      quantity,
     });
   }
 
