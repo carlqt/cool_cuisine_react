@@ -17,6 +17,11 @@ class Menu extends Component {
     getMenu();
   }
 
+  quantity = (mem, val) => (
+    mem + val.quantity
+  )
+
+
   render() {
     const {
       addToCart,
@@ -25,7 +30,7 @@ class Menu extends Component {
       mealStore: meals,
     } = this.props;
 
-    // console.log(this.props);
+    const cartCount = cart.reduce(this.quantity, 0);
 
     return (
       <div className={classes.container}>
@@ -35,7 +40,7 @@ class Menu extends Component {
               Meals
             </Typography>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Badge badgeContent={cart.length} color="secondary">
+              <Badge badgeContent={cartCount} color="secondary">
                 <CartIcon />
               </Badge>
             </IconButton>
