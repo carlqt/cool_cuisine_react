@@ -60,6 +60,13 @@ const styles = theme => ({
 });
 
 class CartDrawer extends React.Component {
+  priceReducer = (mem, val) => {
+    const { price } = val;
+    const priceAmount = price.amount || 0;
+
+    return mem + Number(priceAmount);
+  }
+
   renderCartItems = (item) => {
     return (
       <ListItem button key={item.id}>
@@ -78,6 +85,8 @@ class CartDrawer extends React.Component {
       theme,
       open,
     } = this.props;
+
+    const totalPrice = cartItems.reduce(this.priceReducer, 0);
 
     return (
       <Drawer
@@ -102,7 +111,7 @@ class CartDrawer extends React.Component {
         <List>
           <ListItem>
             <ListItemText className={classes.grow} primary="Total Price: " />
-            <ListItemText primary={40} />
+            <ListItemText primary={`$${totalPrice}`} />
           </ListItem>
         </List>
       </Drawer>
