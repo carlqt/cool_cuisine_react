@@ -15,14 +15,12 @@ export default function (state = initialState, action) {
     }
     case 'ADD_TO_CART': {
       return produce(state, draft => {
-        // let { cart } = draft;
-        const idx = draft.cart.findIndex(item => item.id === data.id)
+        const idx = draft.cart.findIndex(item => item.meal_id === Number(data.id))
 
         if (idx >= 0) {
           draft.cart[idx].quantity = draft.cart[idx].quantity + 1;
         } else {
-          data.quantity = 1
-          draft.cart = draft.cart.concat(data);
+          draft.cart = draft.cart.concat({quantity: 1, meal_id: Number(data.id)});
         }
       })
     }

@@ -12,15 +12,17 @@ class List extends PureComponent {
     } = this.props;
 
     const {
+      price,
       name,
       description,
       quantity,
-      image_url: imageUrl,
+      imageUrl,
     } = meals.byID[Number(id)];
 
     return (
       <ListItem key={id}
         {...{
+          price,
           addToCart,
           name,
           description,
@@ -35,8 +37,6 @@ class List extends PureComponent {
   render() {
     const  { classes, data } = this.props;
     const { meals } = data;
-
-    // console.log(meals);
 
     return (
       <Grid container className={classes.container} spacing={8}>

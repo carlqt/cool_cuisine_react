@@ -18,6 +18,7 @@ const ListItem = (props) => {
     description,
     addToCart,
     quantity,
+    price,
   } = props;
 
   const onClick = () => {
@@ -56,7 +57,7 @@ const ListItem = (props) => {
               Add to cart
           </Button>
           <Typography variant="h6" color="secondary">
-            $44.50
+            { price.amountWithCurrency }
           </Typography>
         </CardActions>
       </Card>

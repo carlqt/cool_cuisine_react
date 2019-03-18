@@ -47,6 +47,23 @@ class Menu extends Component {
     )
   }
 
+  cartItems = () => {
+    const {
+      cartStore: cart,
+      mealStore: { meals },
+    } = this.props;
+
+    return cart.map(item => {
+      const mealID = Number(item.meal_id);
+      const meal = meals.byID[mealID];
+
+      return {
+        ...meal,
+        quantity: item.quantity,
+      }
+    })
+  }
+
   render() {
     const {
       addToCart,
@@ -56,8 +73,8 @@ class Menu extends Component {
     } = this.props;
 
     const { displayCartDrawer } = this.state;
-
     const cartCount = cart.reduce(this.quantity, 0);
+    const cartItems = this.cartItems();
 
     return (
       <div className={classes.container}>
@@ -85,6 +102,7 @@ class Menu extends Component {
         />
 
         <CartDrawer
+          {...{ cartItems }}
           open={displayCartDrawer}
           closeDrawer={this.closeCartDrawer}
         />

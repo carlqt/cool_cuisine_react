@@ -11,8 +11,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import RemoveIcon from '@material-ui/icons/RemoveCircle';
 
 const drawerWidth = 240;
 
@@ -55,35 +54,30 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
   },
-  content: {
+  grow: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
   },
 });
 
 class CartDrawer extends React.Component {
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  }
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
+  renderCartItems = (item) => {
+    return (
+      <ListItem button key={item.id}>
+        <RemoveIcon onClick={() => alert('LOL')} />
+        <ListItemText primary={item.name} />
+        x { item.quantity }
+      </ListItem>
+    )
   }
 
   render() {
-    const { classes, closeDrawer, theme, open } = this.props;
+    const {
+      cartItems,
+      classes,
+      closeDrawer,
+      theme,
+      open,
+    } = this.props;
 
     return (
       <Drawer
@@ -102,21 +96,14 @@ class CartDrawer extends React.Component {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          { cartItems.map(this.renderCartItems) }
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem>
+            <ListItemText className={classes.grow} primary="Total Price: " />
+            <ListItemText primary={40} />
+          </ListItem>
         </List>
       </Drawer>
     );
