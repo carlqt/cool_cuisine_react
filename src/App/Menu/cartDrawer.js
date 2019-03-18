@@ -67,10 +67,15 @@ class CartDrawer extends React.Component {
     return mem + Number(priceAmount);
   }
 
+  removeFromCart = (item) => {
+    const { removeFromCart } = this.props;
+    removeFromCart(item);
+  }
+
   renderCartItems = (item) => {
     return (
       <ListItem button key={item.id}>
-        <RemoveIcon onClick={() => alert('LOL')} />
+        <RemoveIcon onClick={() => this.removeFromCart(item)} />
         <ListItemText primary={item.name} />
         x { item.quantity }
       </ListItem>

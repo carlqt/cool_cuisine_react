@@ -54,7 +54,7 @@ class Menu extends Component {
     } = this.props;
 
     return cart.map(item => {
-      const mealID = Number(item.meal_id);
+      const mealID = Number(item.mealId);
       const meal = meals.byID[mealID];
 
       return {
@@ -67,6 +67,7 @@ class Menu extends Component {
   render() {
     const {
       addToCart,
+      removeFromCart,
       classes,
       cartStore: cart,
       mealStore: meals,
@@ -102,7 +103,7 @@ class Menu extends Component {
         />
 
         <CartDrawer
-          {...{ cartItems }}
+          {...{ cartItems, removeFromCart }}
           open={displayCartDrawer}
           closeDrawer={this.closeCartDrawer}
         />

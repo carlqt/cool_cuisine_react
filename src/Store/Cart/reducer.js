@@ -15,18 +15,18 @@ export default function (state = initialState, action) {
     }
     case 'ADD_TO_CART': {
       return produce(state, draft => {
-        const idx = draft.cart.findIndex(item => item.meal_id === Number(data.id))
+        const idx = draft.cart.findIndex(item => item.mealId=== Number(data.id))
 
         if (idx >= 0) {
           draft.cart[idx].quantity = draft.cart[idx].quantity + 1;
         } else {
-          draft.cart = draft.cart.concat({quantity: 1, meal_id: Number(data.id)});
+          draft.cart = draft.cart.concat({quantity: 1, mealId: Number(data.id)});
         }
       })
     }
     case 'REMOVE_FROM_CART': {
       return produce(state, draft => {
-        draft.cart = draft.cart.filter(e => e !== data);
+        draft.cart = draft.cart.filter(e => e.mealId !== data.id);
       })
     }
     case 'RESET': {
