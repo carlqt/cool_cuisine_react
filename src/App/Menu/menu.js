@@ -7,11 +7,21 @@ import CartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 
 import { withStyles } from '@material-ui/core/styles';
+import produce from 'immer';
 import List from './list';
+import CartDrawer from './cartDrawer';
 
 import 'typeface-roboto';
 
 class Menu extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      displayCartDrawer: false,
+    }
+  }
+
   componentDidMount() {
     const { getMenu } = this.props;
     getMenu();
@@ -21,6 +31,21 @@ class Menu extends Component {
     mem + val.quantity
   )
 
+  openCartDrawer = () => {
+    this.setState(
+      produce(draft => {
+        draft.displayCartDrawer = true
+      })
+    )
+  }
+
+  closeCartDrawer = () => {
+    this.setState(
+      produce(draft => {
+        draft.displayCartDrawer = false
+      })
+    )
+  }
 
   render() {
     const {
@@ -29,6 +54,8 @@ class Menu extends Component {
       cartStore: cart,
       mealStore: meals,
     } = this.props;
+
+    const { displayCartDrawer } = this.state;
 
     const cartCount = cart.reduce(this.quantity, 0);
 
@@ -39,7 +66,12 @@ class Menu extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Meals
             </Typography>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <IconButton
+              onClick={this.openCartDrawer}
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
               <Badge badgeContent={cartCount} color="secondary">
                 <CartIcon />
               </Badge>
@@ -50,6 +82,11 @@ class Menu extends Component {
         <List
           {...{ addToCart }}
           data={meals}
+        />
+
+        <CartDrawer
+          open={displayCartDrawer}
+          closeDrawer={this.closeCartDrawer}
         />
       </div>
     );
