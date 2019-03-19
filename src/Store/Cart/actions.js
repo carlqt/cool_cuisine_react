@@ -29,11 +29,12 @@ export function removeFromCart(item) {
     }
 
     const response = await fetch(url, options);
-    const jsonResponse = await response.json();
 
     dispatch(
       removeFromCartAC(item)
     );
+
+    return response;
   }
 }
 

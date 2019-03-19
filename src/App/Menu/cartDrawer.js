@@ -58,6 +58,14 @@ const styles = theme => ({
 });
 
 class CartDrawer extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      removeInProgress: false,
+    }
+  }
+
   priceReducer = (mem, val) => {
     const { price } = val;
     const priceCents = price.amountInCents;
@@ -65,15 +73,21 @@ class CartDrawer extends React.Component {
     return mem + (priceCents * val.quantity);
   }
 
-  removeFromCart = (item) => {
+  removeFromCart = async (item) => {
     const { removeFromCart } = this.props;
-    removeFromCart(item);
+    this.setState({ removeInProgress: true });
+
+    await removeFromCart(item);
+
+    this.setState({ removeInProgress: false });
   }
 
   renderCartItems = (item) => {
+    const { removeInProgress } = this.state;
+
     return (
-      <ListItem button key={item.id}>
-        <RemoveIcon onClick={() => this.removeFromCart(item)} />
+      <ListItem disabled={removeInProgress} button key={item.id}>
+        <RemoveIcon color="secondary" onClick={() => this.removeFromCart(item)} />
         <ListItemText primary={item.name} />
         x { item.quantity }
       </ListItem>
