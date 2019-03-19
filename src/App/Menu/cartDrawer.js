@@ -60,9 +60,9 @@ const styles = theme => ({
 class CartDrawer extends React.Component {
   priceReducer = (mem, val) => {
     const { price } = val;
-    const priceAmount = price.amount || 0;
+    const priceCents = price.amountInCents;
 
-    return mem + ( Number(priceAmount) * val.quantity );
+    return mem + (priceCents * val.quantity);
   }
 
   removeFromCart = (item) => {
@@ -89,7 +89,7 @@ class CartDrawer extends React.Component {
       open,
     } = this.props;
 
-    const totalPrice = cartItems.reduce(this.priceReducer, 0);
+    const totalPrice = cartItems.reduce(this.priceReducer, 0) / 100;
 
     return (
       <Drawer
