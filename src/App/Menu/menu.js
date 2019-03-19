@@ -8,7 +8,7 @@ import Badge from '@material-ui/core/Badge';
 
 import { withStyles } from '@material-ui/core/styles';
 import produce from 'immer';
-import List from './list';
+import List from './List';
 import CartDrawer from './cartDrawer';
 
 import 'typeface-roboto';
