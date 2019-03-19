@@ -64,7 +64,7 @@ class CartDrawer extends React.Component {
     const { price } = val;
     const priceAmount = price.amount || 0;
 
-    return mem + Number(priceAmount);
+    return mem + ( Number(priceAmount) * val.quantity );
   }
 
   removeFromCart = (item) => {
