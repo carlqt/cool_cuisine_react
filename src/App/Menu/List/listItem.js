@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -8,8 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ListItem = (props) => {
+  const [disabled, disableButton] = useState(false);
+
   const {
     id,
     imageUrl,
@@ -21,14 +24,18 @@ const ListItem = (props) => {
     price,
   } = props;
 
-  const onClick = () => {
-    addToCart({
+  const onClick = async () => {
+    disableButton(true);
+
+    await addToCart({
       id,
       imageUrl,
       name,
       description,
       quantity,
     });
+
+    disableButton(false);
   }
 
   return (
@@ -51,6 +58,7 @@ const ListItem = (props) => {
         </CardActionArea>
         <CardActions>
           <Button
+            {...{ disabled }}
             variant="outlined"
             onClick={onClick}
           >

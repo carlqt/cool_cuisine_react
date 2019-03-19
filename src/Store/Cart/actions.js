@@ -9,12 +9,13 @@ export function addToCart(item) {
     }
 
     const response = await fetch(apiRoutes.cartUrl, data);
-    const jsonResponse = await response.json();
 
     // dispatch only on successful response
     dispatch(
       addToCartAC(item)
     );
+
+    return response;
   }
 }
 
