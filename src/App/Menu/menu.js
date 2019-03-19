@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { withStyles } from '@material-ui/core/styles';
 import produce from 'immer';
@@ -19,12 +20,21 @@ class Menu extends Component {
 
     this.state = {
       displayCartDrawer: false,
+      loading: true,
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { getMenu } = this.props;
-    getMenu();
+    const resp = await getMenu();
+
+    if (resp.ok) {
+      this.setState(
+        produce(draft => {
+          draft.loading = false
+        })
+      );
+    }
   }
 
   quantity = (mem, val) => (
@@ -65,6 +75,7 @@ class Menu extends Component {
   }
 
   render() {
+    const { loading } = this.state;
     const {
       addToCart,
       removeFromCart,
@@ -96,6 +107,7 @@ class Menu extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
+        { loading && <LinearProgress /> }
 
         <List
           {...{ addToCart }}

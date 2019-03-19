@@ -1,9 +1,8 @@
 import apiRoutes from 'Requests/apiRoutes';
 
 export function getMenu() {
-  const url = `${apiRoutes.getMenu}`;
-
   return async (dispatch) => {
+    const url = `${apiRoutes.getMenu}`;
     const response = await fetch(url);
     const jsonResponse = await response.json();
 
@@ -14,6 +13,8 @@ export function getMenu() {
     dispatch(
       loadCart(jsonResponse.data.cart)
     );
+
+    return response;
   }
 }
 
